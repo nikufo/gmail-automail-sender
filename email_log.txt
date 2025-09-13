@@ -1,0 +1,44 @@
+niknikson24@gmail.com,2024-10-13 00:44:47.377132
+niknikson24@gmail.com,2024-10-13 00:49:09.628104
+niknikson24@gmail.com,2024-10-13 00:49:40.706823
+niknikson24@gmail.com,2024-10-13 00:55:04.547474
+quickedureels@gmail.com,2024-10-13 00:55:10.048666
+niknikson24@gmail.com,2024-10-13 01:03:44.971033
+quickedureels@gmail.com,2024-10-13 01:03:49.665577
+bestbuddybd@gmail.com,2024-10-13 01:03:54.180103
+niknikson24@gmail.com,2024-10-13 01:27:17.304180
+niknikson24@gmail.com,2024-10-13 01:28:52.781800
+quickedureels@gmail.com,2024-10-13 01:29:01.255327
+bestbuddybd@gmail.com,2024-10-13 01:29:10.547261
+2024-10-13 01:52:27.780351, niknikson24@gmail.com, Failed: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 41be03b00d2f7-7ea448e3f47sm4199303a12.8 - gsmtp')
+2024-10-13 01:53:27.677823, niknikson24@gmail.com, Success
+2024-10-13 02:03:32.801344, niknikson24@gmail.com, Success
+2024-10-13 02:03:44.061229, niknikson24@gmail.com, Success
+2024-10-13 02:03:44.864782, niknikson24@gmail.com, Success
+2024-10-13 02:05:04.859156, niknikson24@gmail.com, Success
+2024-10-13 02:16:55.081188, niknikson24@gmail.com, Success
+2024-10-13 02:17:28.218570, niknikson24@gmail.com, Success
+2024-10-13 02:18:58.498478, Email, Failed: {'Email': (553, b'5.1.3 The recipient address <Email> is not a valid RFC 5321 address. For\n5.1.3 more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. d2e1a72fcca58-71e594c3f9esm442826b3a.78 - gsmtp')}
+2024-10-13 02:19:12.345163, niknikson24@gmail.com, Success
+2024-10-13 02:19:25.981297, quickedureels@gmail.com, Success
+2024-10-13 02:19:40.313991, bestbuddybd@gmail.com, Success
+2024-10-13 02:19:54.181821, maxbounty6@gmail.com, Success
+2024-10-16 04:01:39.106691, Email, Failed: {'Email': (553, b'5.1.3 The recipient address <Email> is not a valid RFC 5321 address. For\n5.1.3 more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. d9443c01a7336-20d17f84502sm17031665ad.53 - gsmtp')}
+2024-10-16 04:01:54.678960, 013dorian@gmail.com, Success
+2024-10-16 04:02:09.152392, kaszuba114@gmail.com, Success
+2024-10-16 04:02:23.358970, zebieryk@gmail.com, Success
+2024-10-16 04:02:36.895655, hockeya11@live.ca, Success
+2024-10-16 04:02:50.544912, aliciabray89@gmail.com, Success
+2024-10-16 04:03:04.228032, nightforce@gmx.at, Success
+2024-10-16 04:03:17.755264, okischnoki1973@gmail.com, Success
+2024-10-16 04:03:31.278029, marlowealex7@gmail.com, Success
+2024-10-16 04:03:44.764075, antonellopuledda@gmail.com, Success
+2024-10-16 04:03:58.221251, ariemvisser@gmail.com, Success
+2024-10-16 04:04:12.609210, aziz.aksu-2015@hotmail.com, Success
+2024-10-16 04:04:26.932317, b.neumann57@online.de, Success
+2024-10-16 04:04:41.266826, brad56468@gmail.com, Success
+2024-10-16 04:04:54.865971, ianirrazabal7@gmail.com, Success
+2024-10-16 04:05:08.374186, gauthiercassius909@gmail.com, Success
+2024-10-16 04:05:21.821688, kate@spicycasinos.com, Success
+2024-10-16 04:05:36.195472, mizzcmurphy@gmail.com, Success
+2024-10-16 04:05:49.820485, proietticlaudio735@gmail.com, Success

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Sender Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        label {
+            font-weight: bold;
+            color: #555;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .status-message, .loading-message, .error-message {
+            margin-top: 20px;
+            padding: 10px;
+            border-left: 4px solid;
+            display: none;
+        }
+        .status-message {
+            background-color: #e2f7e2;
+            border-color: #28a745;
+            color: #333;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+        .loading-message {
+            background-color: #f7f8e2;
+            border-color: #f1c40f;
+            color: #555;
+        }
+        .form-section {
+            display: none;
+        }
+        #htmlPreview {
+            display: none;
+            background-color: #f9f9f9;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+        }
+        #closePreviewButton {
+            display: none;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            margin-top: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Email Sending Tool</h1>
+
+        <!-- Email Type Dropdown -->
+        <label for="emailType">Choose Email Type:</label>
+        <select id="emailType" onchange="toggleForms()">
+            <option value="">Select an option</option>
+            <option value="single">Single Email</option>
+            <option value="bulk">Bulk Email</option>
+        </select>
+
+        <!-- Single Email Form -->
+        <div id="singleEmailForm" class="form-section">
+            <h2>Send Single Email</h2>
+            <form id="emailForm" enctype="multipart/form-data">
+                <label for="sender_name">Sender Name:</label>
+                <input type="text" id="sender_name" name="sender_name" required>
+
+                <label for="recipient_email">Recipient Email:</label>
+                <input type="email" id="recipient_email" name="recipient_email" required>
+
+                <label for="subject">Subject:</label>
+                <input type="text" id="subject" name="subject" required>
+
+                <label for="body">Email Body (Plain Text):</label>
+                <textarea id="body" name="body" rows="4" required></textarea>
+
+                <label for="html_content">HTML Content (Optional):</label>
+                <textarea id="html_content" name="html_content" rows="4"></textarea>
+                <button type="button" onclick="togglePreview()">Show Preview</button>
+
+                <div id="htmlPreview"></div>
+                <button type="button" id="closePreviewButton" onclick="togglePreview()">Close Preview</button>
+
+                <label for="attachment">Attachment (Optional):</label>
+                <input type="file" id="attachment" name="attachment">
+
+                <button type="button" onclick="sendEmail()">Send Email</button>
+            </form>
+        </div>
+
+        <!-- Bulk Email Form -->
+        <div id="bulkEmailForm" class="form-section">
+            <h2>Send Bulk Emails</h2>
+            <form id="bulkEmailFormElement" enctype="multipart/form-data">
+                <label for="email_list">Upload CSV Email List:</label>
+                <input type="file" id="email_list" name="email_list" required>
+
+                <label for="sender_name_bulk">Sender Name:</label>
+                <input type="text" id="sender_name_bulk" name="sender_name" required>
+
+                <label for="subject_bulk">Subject:</label>
+                <input type="text" id="subject_bulk" name="subject" required>
+
+                <label for="body_bulk">Email Body (Plain Text):</label>
+                <textarea id="body_bulk" name="body" rows="4" required></textarea>
+
+                <label for="html_content_bulk">HTML Content (Optional):</label>
+                <textarea id="html_content_bulk" name="html_content" rows="4"></textarea>
+
+                <label for="attachment_bulk">Attachment (Optional):</label>
+                <input type="file" id="attachment_bulk" name="attachment">
+
+                <label for="delay_bulk">Delay (Seconds):</label>
+                <input type="number" id="delay_bulk" name="delay" value="10" required>
+
+                <button type="button" onclick="sendBulkEmails()">Send Bulk Emails</button>
+            </form>
+        </div>
+
+        <!-- Loading message -->
+        <div id="loadingMessage" class="loading-message">Sending email...</div>
+
+        <!-- Success and error messages -->
+        <div id="successMessage" class="status-message"></div>
+        <div id="errorMessage" class="error-message"></div>
+    </div>
+
+    <script>
+        // Toggle between Single and Bulk email forms
+        function toggleForms() {
+            var emailType = document.getElementById('emailType').value;
+            var singleEmailForm = document.getElementById('singleEmailForm');
+            var bulkEmailForm = document.getElementById('bulkEmailForm');
+
+            if (emailType === 'single') {
+                singleEmailForm.style.display = 'block';
+                bulkEmailForm.style.display = 'none';
+            } else if (emailType === 'bulk') {
+                singleEmailForm.style.display = 'none';
+                bulkEmailForm.style.display = 'block';
+            } else {
+                singleEmailForm.style.display = 'none';
+                bulkEmailForm.style.display = 'none';
+            }
+        }
+
+        // Show or close HTML preview
+        function togglePreview() {
+            var previewDiv = document.getElementById('htmlPreview');
+            var closePreviewButton = document.getElementById('closePreviewButton');
+            var htmlContent = document.getElementById('html_content').value;
+
+            if (previewDiv.style.display === "none") {
+                previewDiv.innerHTML = htmlContent;
+                previewDiv.style.display = "block";
+                closePreviewButton.style.display = "inline-block";
+            } else {
+                previewDiv.style.display = "none";
+                closePreviewButton.style.display = "none";
+            }
+        }
+
+        // AJAX for Single Email Sending
+        function sendEmail() {
+            var formData = new FormData(document.getElementById('emailForm'));
+
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/send_email', true);
+
+            xhr.onload = function() {
+                document.getElementById('loadingMessage').style.display = 'none';
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        document.getElementById('successMessage').innerText = response.message;
+                        document.getElementById('successMessage').style.display = 'block';
+                    } else {
+                        document.getElementById('errorMessage').innerText = response.message;
+                        document.getElementById('errorMessage').style.display = 'block';
+                    }
+                } else {
+                    document.getElementById('errorMessage').innerText = 'An error occurred while sending the email.';
+                    document.getElementById('errorMessage').style.display = 'block';
+                }
+            };
+
+            xhr.onerror = function() {
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('errorMessage').innerText = 'An error occurred while sending the email.';
+                document.getElementById('errorMessage').style.display = 'block';
+            };
+
+            xhr.send(formData);
+        }
+
+        // AJAX for Bulk Email Sending
+        function sendBulkEmails() {
+            var formData = new FormData(document.getElementById('bulkEmailFormElement'));
+
+            document.getElementById('loadingMessage').style.display = 'block';
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/import_email_list', true);
+
+            xhr.onload = function() {
+                document.getElementById('loadingMessage').style.display = 'none';
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.status === 'success') {
+                        document.getElementById('successMessage').innerText = response.message;
+                        document.getElementById('successMessage').style.display = 'block';
+                    } else {
+                        document.getElementById('errorMessage').innerText = response.message;
+                        document.getElementById('errorMessage').style.display = 'block';
+                    }
+                } else {
+                    document.getElementById('errorMessage').innerText = 'An error occurred while sending the bulk emails.';
+                    document.getElementById('errorMessage').style.display = 'block';
+                }
+            };
+
+            xhr.onerror = function() {
+                document.getElementById('loadingMessage').style.display = 'none';
+                document.getElementById('errorMessage').innerText = 'An error occurred while sending the bulk emails.';
+                document.getElementById('errorMessage').style.display = 'block';
+            };
+
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
